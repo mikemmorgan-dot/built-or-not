@@ -443,7 +443,7 @@ window.__LOC = {"LNG Canada Phase 2": {"lon": -128.65, "lat": 54.05, "prec": "si
 
     <article class="ss-card ss-card--wide" id="capital">
       <h2>Announced versus reported spent</h2>
-      <p class="ss-card-note">Referred projects with a Canadian-dollar figure, largest first. The dark segment is spending a proponent or government has reported publicly. Most private proponents don't report project-level spending, so a missing bar means no public figure, not zero.</p>
+      <p class="ss-card-note">Referred projects with a Canadian-dollar figure, largest first. The dark segment is spending a proponent or government has reported publicly. Most private proponents don't report project-level spending, so a missing bar means no public figure, not zero. Where spending is reported, the figure reads spent / announced.</p>
       <div class="ss-legend"><span><i class="ss-sw" id="sw-ann"></i>Announced</span><span><i class="ss-sw" id="sw-spent"></i>Reported spent</span></div>
       <div class="ss-chart" id="capital-chart" data-source="projects"></div>
       <p class="ss-card-note" id="capital-excluded" data-source="projects"></p>
@@ -821,7 +821,7 @@ window.ssFmt = {
         const a = num(r.announced_cad_m), s = num(r.spent_cad_m);
         return {
           label: r.project, value: a, value2: s,
-          valueText: F.mil(a), color: css('--cds-chart-muted'), color2: dash.colors[0],
+          valueText: s > 0 ? (s >= 1000 ? F.bil(s / 1000) : F.mil(s)) + ' / ' + F.mil(a) : F.mil(a), color: css('--cds-chart-muted'), color2: dash.colors[0],
           tip: [r.project, ['Announced ' + F.mil(a), s > 0 ? 'Reported spent ' + F.mil(s) : 'No public spending figure', 'Stage: ' + r.stage, r.capital_basis]]
         };
       });
